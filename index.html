@@ -25,10 +25,10 @@
         schema: {
           speed: { default: 2 },              // meters per second
           controller: { type: 'selector' },    // entity that emits axismove
-          go: { default: true }
+          go: { default: 1 }
         },
         init: function () {
-            if (this.data.go) {
+            if (this.data.go == 1) {
               this.axis = { x: 0, y: 0 };
               var src = this.data.controller || this.el;
               var self = this;
