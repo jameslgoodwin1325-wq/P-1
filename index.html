@@ -18,6 +18,45 @@
       }
     });
   </script>
+
+  <script>
+    //Movement
+      AFRAME.registerComponent('move-with-arrows', {
+        schema: {
+          speed: { default: 2 },              // meters per second
+          controller: { type: 'selector' },    // entity that emits axismove
+          go: { default: true }
+        },
+        init: function () {
+            if (this.data.go) {
+              this.axis = { x: 0, y: 0 };
+              var src = this.data.controller || this.el;
+              var self = this;
+              src.addEventListener('axismove', function (evt) {
+                self.axis.x = evt.detail.axis[0];
+                self.axis.y = evt.detail.axis[1];
+              });
+            }
+          // Stop when thumb leaves the touchpad
+          src.addEventListener('trackpadtouchend', function () {
+            self.axis.x = 0; self.axis.y = 0;
+          });
+        },
+        tick: function (time, timeDelta) {
+          if (!timeDelta) return;
+          var x = this.axis.x, y = this.axis.y;
+          if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) return; // dead zone
+
+          var d = this.data.speed * (timeDelta / 1000);
+          var yaw = this.el.sceneEl.camera.el.object3D.rotation.y;
+          var sin = Math.sin(yaw), cos = Math.cos(yaw);
+
+          var p = this.el.object3D.position;  // mutate directly, no setAttribute
+          p.x += (x * cos + y * sin) * d;
+          p.z += (y * cos - x * sin) * d;
+        }
+      });
+  </script>
   <body>
     <a-scene>
 
