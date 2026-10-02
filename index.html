@@ -9,7 +9,7 @@
       
       <a-entity id="scene1" position="0 0 0">
         <!-- Scnene 1 -->
-        <a-box color="red" position="0 2 -5" rotation="0 45 45" scale="2 2 2"></a-box>
+        <a-box id="start" color="red" position="0 2 -5" rotation="0 45 45" scale="2 2 2"></a-box>
       </a-entity>
 
       <a-entity id="scene2" position="0 0 0">
@@ -20,6 +20,10 @@
   </body>
   
   <script>
-    
+    var button = document.querySelector("start");
+    button.addEventListener('mouseenter', function () {
+      //
+      button.setAttribute('scale', {x: 4, y: 4, z:4})
+    });
   </script>
 </html>
