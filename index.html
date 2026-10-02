@@ -4,22 +4,6 @@
     <title>P-1</title>
   </head>
   <script>
-    AFRAME.registerComponent('scale-on-mouseenter', {
-      schema: {
-        to: {default: {4, 4, 4}, type='vec3'}
-      }
-      init: function() {
-        var el = this.el
-        var data = this.data
-        el.addEventListener('mouseenter', function () {
-          //On Mouse Enter
-          el.object3D.scale.copy(data.to);
-        });
-      }
-    });
-  </script>
-
-  <script>
     //Movement
       AFRAME.registerComponent('move-with-arrows', {
         schema: {
@@ -84,7 +68,9 @@
       
       <a-entity id="scene1" position="0 0 0">
         <!-- Scnene 1 -->
-        <a-box id="start" color="white" position="0 2 -5" rotation="0 45 45" scale="2 2 2" scale-on-mouseenter></a-box>
+        <a-box id="start" color="white" position="0 2 -5" rotation="0 45 45" scale="2 2 2" 
+          animation__enter="property: scale; to: 1.5 1.5 1.5; dur: 300; startEvents: mouseenter"
+           animation__leave="property: scale; to: 1 1 1; dur: 300; startEvents: mouseleave"></a-box>
         <a-sky color='#000'></a-sky>
 
         <a-entity id="menu">
