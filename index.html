@@ -3,7 +3,21 @@
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <title>P-1</title>
   </head>
-
+  <script>
+    AFRAME.registerComponent('scale-on-mouseenter', {
+      schema: {
+        to: {default: {4, 4, 4}, type='vec3'}
+      }
+      init: function() {
+        var el = this.el
+        var data = this.data
+        el.addEventListener('mouseenter', function () {
+          //On Mouse Enter
+          el.object3D.scale.copy(data.to);
+        });
+      }
+    });
+  </script>
   <body>
     <a-scene>
       
@@ -20,10 +34,6 @@
   </body>
   
   <script>
-    var button = document.querySelector("start");
-    button.addEventListener('mouseenter', function () {
-      //
-      button.setAttribute('scale', {x: 4, y: 4, z:4})
-    });
+
   </script>
 </html>
