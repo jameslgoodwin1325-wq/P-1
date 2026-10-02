@@ -21,11 +21,15 @@
   <body>
     <a-scene>
 
-      <a-camera>
-        <a-cursor>
-          <a-entity oculus-go-controls></a-entity>
-        </a-cursor>
-      </a-camera>
+      <a-entity id="rig" position="0 0 0">
+        <a-camera id="camera" wasd-controls="enabled: false"
+                  cursor="rayOrigin: mouse"
+                  raycaster="objects: .clickable"></a-camera>
+
+        <a-entity id="rightHand" laser-controls="hand: right"
+                  raycaster="objects: .clickable; far: 20"
+                  line="color: #00e5ff; opacity: 0.8"></a-entity>
+      </a-entity>
       
       <a-entity id="scene1" position="0 0 0">
         <!-- Scnene 1 -->
