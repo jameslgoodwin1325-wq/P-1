@@ -74,7 +74,9 @@
   </script>
   <body>
     <a-scene>
-
+      <a-assets>
+        <a-asset-item id="star" src="8ptFidgetStart.glb"></a-asset-item>
+      </a-assets>
       <a-entity id="rig" position="0 0 0" move-with-arrows="controller: #rightHand; speed: 4; go: 1;">
         <a-camera id="camera" wasd-controls="enabled: true"
                   cursor="rayOrigin: mouse"
