@@ -45,7 +45,7 @@
   </script>
     <!--  -->
     <script>
-    AFRAME.registerComponent('menu', function() {
+    AFRAME.registerComponent('start', function() {
       var el = this.el;
       var s1 = document.querySelector('#scene1');
       var s2 = document.querySelector('#scene2');
@@ -85,7 +85,7 @@
       
       <a-entity id="scene1" position="0 0 0">
         <!-- Scnene 1 -->
-        <a-box id="start" class="clickable" color="white" position="0 2 -5" rotation="0 45 45" scale="2 2 2" 
+        <a-box id="start" start class="clickable" color="white" position="0 2 -5" rotation="0 45 45" scale="2 2 2" 
           animation__enter="property: scale; to: 4 4 4; dur: 300; startEvents: mouseenter"
            animation__leave="property: scale; to: 3 3 3; dur: 300; startEvents: mouseleave"></a-box>
         <a-sky color='#000'></a-sky>
