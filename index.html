@@ -45,15 +45,17 @@
   </script>
     <!-- TURN OFF THE LIGHTS IN THE BASEMENT -->
   <script>
-      
+
+    function showScene(n) {
+      document.querySelector('#scene1').setAttribute('visible', n === 1);
+      document.querySelector('#scene2').setAttribute('visible', n === 2);
+    }
+    
     AFRAME.registerComponent('click-to-start', function() {
       var el = this.el;
-      var s1;
-      var s2;
       init: function() {
         el.addEventListener('click', function() {
-          s1 = false;
-          s2 = true;
+          showScene(2);
         }); 
       }
     });
