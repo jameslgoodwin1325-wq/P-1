@@ -76,6 +76,7 @@
     <a-scene>
       <a-assets>
         <a-asset-item id="star" src="./8ptFidgetStar.glb"></a-asset-item>
+        <a-asset-item id="starship" src="./Starship.glb"></a-asset-item>
       </a-assets>
       
       <a-entity id="rig" position="0 0 0" move-with-arrows="controller: #rightHand; speed: 4; go: 1;">
@@ -103,6 +104,7 @@
         <a-plane  position="0 0 0" rotation="-90 0 0" width="100" height="100" color="#90EE90"></a-plane>
         <a-box color="red" position="0 2.5 -10" scale="5 5 5" rotation="45 0 0"></a-box>
         <a-entity gltf-model="#star" position="10 0 10" scale="0.05 0.05 0.05"></a-entity>
+        <a-entity gltf-model="#starship" position="20 0 -30" scale="0.05 0.05 0.05"></a-entity>
       </a-entity>
       
     </a-scene>
