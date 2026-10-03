@@ -46,8 +46,10 @@
     <!-- TURN OFF THE LIGHTS IN THE BASEMENT -->
   <script>
       
-    AFRAME.registerComponent('click-to-toggle', function() {
+    AFRAME.registerComponent('click-to-start', function() {
       var el = this.el;
+      var s1;
+      var s2;
       init: function() {
         el.addEventListener('click', function() {
           s1 = false;
