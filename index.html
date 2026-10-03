@@ -45,18 +45,18 @@
   </script>
     <!-- TURN OFF THE LIGHTS IN THE BASEMENT -->
   <script>
-
     function showScene(n) {
       document.querySelector('#scene1').setAttribute('visible', n === 1);
       document.querySelector('#scene2').setAttribute('visible', n === 2);
     }
-    
+
     AFRAME.registerComponent('click-to-start', {
-      var el = this.el;
-      init: function() {
-        el.addEventListener('click', function() {
+      init: function () {
+        var el = this.el;
+        el.addEventListener('click', function () {
           showScene(2);
-        }); 
+          el.classList.remove('clickable'); // hidden objects can still be clicked
+        });
       }
     });
   </script>
