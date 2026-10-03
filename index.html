@@ -81,6 +81,7 @@
         <a-entity id="rightHand" laser-controls="hand: right"
                   raycaster="objects: .clickable; far: 20"
                   line="color: #00e5ff; opacity: 0.8"></a-entity>
+        <a-entity id="menu"></a-entity>
       </a-entity>
       
       <a-entity id="scene1" position="0 0 0">
@@ -89,10 +90,6 @@
           animation__enter="property: scale; to: 4 4 4; dur: 300; startEvents: mouseenter"
            animation__leave="property: scale; to: 3 3 3; dur: 300; startEvents: mouseleave"></a-box>
         <a-sky color='#000'></a-sky>
-
-        <a-entity id="menu">
-          <!--        -->
-        </a-entity>
           
         </a-entity>
       </a-entity>
