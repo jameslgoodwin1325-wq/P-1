@@ -1,102 +1,112 @@
-<!DOCTYPE html>
 <html>
-<head>
-  <title>P-1</title>
-  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <title>P-1</title>
+  </head>
   <script>
-    // Movement
-    AFRAME.registerComponent('move-with-arrows', {
-      schema: {
-        speed: { default: 2 },
-        controller: { type: 'selector' },
-        go: { default: 1 }
-      },
-      init: function () {
-        var self = this;
-        this.axis = { x: 0, y: 0 };
-        var src = this.data.controller || this.el;
+    //Movement
+      AFRAME.registerComponent('move-with-arrows', {
+        schema: {
+          speed: { default: 2 },              // meters per second
+          controller: { type: 'selector' },    // entity that emits axismove
+          go: { default: 1 }
+        },
+        init: function () {
+            if (this.data.go == 1) {
+              this.axis = { x: 0, y: 0 };
+              var src = this.data.controller || this.el;
+              var self = this;
+              src.addEventListener('axismove', function (evt) {
+                self.axis.x = evt.detail.axis[0];
+                self.axis.y = evt.detail.axis[1];
+              });
+            } else {
+              //
+            }
+          // Stop when thumb leaves the touchpad
+          src.addEventListener('trackpadtouchend', function () {
+            self.axis.x = 0; self.axis.y = 0;
+          });
+        },
+        tick: function (time, timeDelta) {
+          if (!timeDelta) return;
+          var x = this.axis.x, y = this.axis.y;
+          if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) return; // dead zone
 
-        src.addEventListener('thumbstickmoved', function (evt) {
-          self.axis.x = evt.detail.x;
-          self.axis.y = evt.detail.y;
-        });
-        src.addEventListener('axismove', function (evt) {
-          var a = evt.detail.axis;
-          self.axis.x = (a.length > 3 ? a[2] : a[0]) || 0;
-          self.axis.y = (a.length > 3 ? a[3] : a[1]) || 0;
-        });
-        src.addEventListener('trackpadtouchend', function () {
-          self.axis.x = 0; self.axis.y = 0;
-        });
-      },
-      tick: function (time, timeDelta) {
-        if (!timeDelta || this.data.go != 1) return;
-        var x = this.axis.x, y = this.axis.y;
-        if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) return;
+          var d = this.data.speed * (timeDelta / 1000);
+          var yaw = this.el.sceneEl.camera.el.object3D.rotation.y;
+          var sin = Math.sin(yaw), cos = Math.cos(yaw);
 
-        var d = this.data.speed * (timeDelta / 1000);
-        var yaw = this.el.sceneEl.camera.el.object3D.rotation.y;
-        var sin = Math.sin(yaw), cos = Math.cos(yaw);
-        var p = this.el.object3D.position;
-        p.x += (x * cos + y * sin) * d;
-        p.z += (y * cos - x * sin) * d;
-      }
-    });
+          var p = this.el.object3D.position;  // mutate directly, no setAttribute
+          p.x += (x * cos + y * sin) * d;
+          p.z += (y * cos - x * sin) * d;
+        }
+      });
+  </script>
+    <!-- TURN OFF THE LIGHTS IN THE BASEMENT -->
+  <script>
 
-    // Scene switching
     function showScene(n) {
       document.querySelector('#scene1').setAttribute('visible', n === 1);
       document.querySelector('#scene2').setAttribute('visible', n === 2);
     }
-
-    AFRAME.registerComponent('click-to-toggle', {
-      init: function () {
-        var el = this.el;
-        el.addEventListener('click', function () {
+    
+    AFRAME.registerComponent('click-to-start', function() {
+      var el = this.el;
+      init: function() {
+        el.addEventListener('click', function() {
           showScene(2);
-          el.classList.remove('clickable'); // stop the hidden box being clickable
-        });
-      }
-    });
-
-    // Menu (put on the controller)
-    AFRAME.registerComponent('menu', {
-      init: function () {
-        var el = this.el;
-        function openMenu() { /* menu code here */ }
-        el.addEventListener('trackpaddown', openMenu);
-        el.addEventListener('thumbstickdown', openMenu);
-        el.addEventListener('abuttondown', openMenu);
+        }); 
       }
     });
   </script>
-</head>
-<body>
-  <a-scene>
-    <a-entity id="rig" position="0 0 0"
-              move-with-arrows="controller: #rightHand; speed: 2; go: 1">
-      <a-camera id="camera" wasd-controls="enabled: true"
-                cursor="rayOrigin: mouse"
-                raycaster="objects: .clickable"></a-camera>
 
-      <a-entity id="rightHand" laser-controls="hand: right" menu
-                raycaster="objects: .clickable; far: 20"
-                line="color: #00e5ff; opacity: 0.8"></a-entity>
-    </a-entity>
+  <script>
+    AFRAME.registerComponent('menu', function() {
+      var el = this.el;
+      init: function() {
+        el.addEventListener('trackpaddown', function() {
+          //If Trackpad Down
 
-    <a-entity id="scene1">
-      <a-box id="start" click-to-toggle class="clickable" color="white"
-             position="0 2 -5" rotation="0 45 45" scale="3 3 3"
-             animation__enter="property: scale; to: 4 4 4; dur: 300; startEvents: mouseenter"
-             animation__leave="property: scale; to: 3 3 3; dur: 300; startEvents: mouseleave"></a-box>
-      <a-sky color="#000"></a-sky>
-    </a-entity>
+        }); 
+      }
+    });
+  </script>
+  <body>
+    <a-scene>
 
-    <a-entity id="scene2" visible="false">
-      <a-sky color="#00B"></a-sky>
-      <a-plane rotation="-90 0 0" width="100" height="100" color="#90EE90"></a-plane>
-      <a-box color="red" position="0 2.5 -10" scale="5 5 5"></a-box>
-    </a-entity>
-  </a-scene>
-</body>
+      <a-entity id="rig" position="0 0 0" move-with-arrows="controller: #rightHand; speed: 2; go: 1;">
+        <a-camera id="camera" wasd-controls="enabled: true"
+                  cursor="rayOrigin: mouse"
+                  raycaster="objects: .clickable"></a-camera>
+
+        <a-entity id="rightHand" laser-controls="hand: right"
+                  raycaster="objects: .clickable; far: 20"
+                  line="color: #00e5ff; opacity: 0.8"></a-entity>
+        <a-entity id="menu"></a-entity>
+      </a-entity>
+      
+      <a-entity id="scene1" visible="true" position="0 0 0">
+        <!-- Scnene 1 -->
+        <a-box id="start" click-to-start class="clickable" color="white" position="0 2 -5" rotation="0 45 45" scale="3 3 3" 
+          animation__enter="property: scale; to: 4 4 4; dur: 300; startEvents: mouseenter"
+           animation__leave="property: scale; to: 3 3 3; dur: 300; startEvents: mouseleave"></a-box>
+        <a-sky color='#000'></a-sky>
+          
+        </a-entity>
+      </a-entity>
+
+      <a-entity id="scene2" visible="false" position="0 0 0">
+        <!-- Scene 2 -->
+        <a-sky color="#00B"></a-sky>
+        <a-plane  position="0 0 0" rotation="-90 0 0" width="100" height="100" color="#90EE90"></a-plane>
+        <a-box color="red" position="0 0 10" scale="5 5 5" rotation="0 0 0"></a-box>
+      </a-entity>
+      
+    </a-scene>
+  </body>
+  
+  <script>
+
+  </script>
 </html>
