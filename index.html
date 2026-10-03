@@ -51,7 +51,7 @@
       document.querySelector('#scene2').setAttribute('visible', n === 2);
     }
     
-    AFRAME.registerComponent('click-to-start', function() {
+    AFRAME.registerComponent('click-to-start', {
       var el = this.el;
       init: function() {
         el.addEventListener('click', function() {
@@ -62,7 +62,7 @@
   </script>
 
   <script>
-    AFRAME.registerComponent('menu', function() {
+    AFRAME.registerComponent('menu', {
       var el = this.el;
       init: function() {
         el.addEventListener('trackpaddown', function() {
