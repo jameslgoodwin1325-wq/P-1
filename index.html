@@ -48,7 +48,7 @@
     function showScene(n) {
       document.querySelector('#scene1').setAttribute('visible', n === 1);
       document.querySelector('#scene2').setAttribute('visible', n === 2);
-      document.querySelector('#starship-scene').setAttribute('visible', n === 3);
+      document.querySelector('#scene3').setAttribute('visible', n === 3);
     }
 
     AFRAME.registerComponent('click-to-start', {
@@ -110,12 +110,12 @@
         <a-sky color='#000'></a-sky>
       </a-entity>
 
-      <a-entity id="starship-scene" visible="true" position="0 0 0">
+      <a-entity id="scene3" visible="true" position="0 0 0">
         <!-- Scnene 1 -->
         <a-box id="start" click-to-start class="clickable" color="white" position="0 2 -5" rotation="0 45 45" scale="3 3 3" 
           animation__enter="property: scale; to: 4 4 4; dur: 300; startEvents: mouseenter"
            animation__leave="property: scale; to: 3 3 3; dur: 300; startEvents: mouseleave"></a-box>
-        <a-sky color='#000'></a-sky>
+        <a-sky color='#C00'></a-sky>
       </a-entity>
 
       <a-entity id="scene2" visible="false" position="0 0 0">
