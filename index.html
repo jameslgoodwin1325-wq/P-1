@@ -8,21 +8,16 @@
       AFRAME.registerComponent('move-with-arrows', {
         schema: {
           speed: { default: 2 },              // meters per second
-          controller: { type: 'selector' },    // entity that emits axismove
-          go: { default: 1 }
+          controller: { type: 'selector' }
         },
         init: function () {
-            if (this.data.go == 1) {
-              this.axis = { x: 0, y: 0 };
-              var src = this.data.controller || this.el;
-              var self = this;
-              src.addEventListener('axismove', function (evt) {
-                self.axis.x = evt.detail.axis[0];
-                self.axis.y = evt.detail.axis[1];
+            this.axis = { x: 0, y: 0 };
+            var src = this.data.controller || this.el;
+            var self = this;
+            src.addEventListener('axismove', function (evt) {
+              self.axis.x = evt.detail.axis[0];
+              self.axis.y = evt.detail.axis[1];
               });
-            } else {
-              //
-            }
           // Stop when thumb leaves the touchpad
           src.addEventListener('trackpadtouchend', function () {
             self.axis.x = 0; self.axis.y = 0;
@@ -90,7 +85,7 @@
         <a-asset-item id="pedastol" src="./Pedastol.glb"></a-asset-item>
       </a-assets>
       
-      <a-entity id="rig" position="0 0 0" move-with-arrows="controller: #rightHand; speed: 4; go: 1;">
+      <a-entity id="rig" position="0 0 0" move-with-arrows="controller: #rightHand; speed: 4;">
         <a-camera id="camera" wasd-controls="enabled: true"
                   cursor="rayOrigin: mouse"
                   raycaster="objects: .clickable"></a-camera>
