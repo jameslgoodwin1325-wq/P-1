@@ -50,7 +50,8 @@
       init: function () {
         var el = this.el;
         el.addEventListener('click', function () {
-          showScene(3);
+          showScene(2);
+          el.classList.remove('clickable'); // hidden objects can still be clicked
         });
       }
     });
@@ -58,8 +59,7 @@
       init: function () {
         var el = this.el;
         el.addEventListener('click', function () {
-          showScene(2);
-          el.classList.remove('clickable'); // hidden objects can still be clicked
+          showScene(3);
         });
       }
     });
