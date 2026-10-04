@@ -44,6 +44,18 @@
       document.querySelector('#scene1').setAttribute('visible', n === 1);
       document.querySelector('#scene2').setAttribute('visible', n === 2);
       document.querySelector('#scene3').setAttribute('visible', n === 3);
+
+      switch (n) {
+        case 1:
+          document.querySelector('#start').classList.add('clickable');
+          break;
+        case 2:
+          document.querySelector('#starship').classList.add('clickable');
+          break;
+        case 3:
+          document.querySelector('#star').classList.add('clickable');
+          break;
+      }
     }
 
     AFRAME.registerComponent('click-to-start', {
@@ -60,6 +72,7 @@
         var el = this.el;
         el.addEventListener('click', function () {
           showScene(3);
+          el.classList.remove('clickable'); 
         });
       }
     });
