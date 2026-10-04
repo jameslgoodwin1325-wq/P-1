@@ -75,8 +75,9 @@
   <body>
     <a-scene>
       <a-assets>
-        <a-asset-item id="star" src="./8ptFidgetStar.glb"></a-asset-item>
-        <a-asset-item id="starship" src="./Starship.glb"></a-asset-item>
+        <a-asset-item id="star" src="./assets/8ptFidgetStar.glb"></a-asset-item>
+        <a-asset-item id="starship" src="./assets/Starship.glb"></a-asset-item>
+        <a-asset-item id="portal_logo" src="./assets/PortalLogo.glb"></a-asset-item>
       </a-assets>
       
       <a-entity id="rig" position="0 0 0" move-with-arrows="controller: #rightHand; speed: 4; go: 1;">
@@ -102,9 +103,9 @@
         <!-- Scene 2 -->
         <a-sky color="#00B"></a-sky>
         <a-plane  position="0 0 0" rotation="-90 0 0" width="100" height="100" color="#90EE90"></a-plane>
-        <a-box color="red" position="0 2.5 -10" scale="5 5 5" rotation="45 0 0"></a-box>
         <a-entity gltf-model="#star" position="10 0 10" scale="0.05 0.05 0.05"></a-entity>
         <a-entity gltf-model="#starship" position="7 0 -8" scale="0.05 0.05 0.05"></a-entity>
+        <a-entity gltf-model="#portal_logo" rotation="90 0 0" position="0 10 0" scale="0.5 0.5 0.5"></a-entity>
       </a-entity>
       
     </a-scene>
@@ -114,3 +115,4 @@
 
   </script>
 </html>
+
