@@ -48,7 +48,6 @@
     function showScene(n) {
       document.querySelector('#scene1').setAttribute('visible', n === 1);
       document.querySelector('#scene2').setAttribute('visible', n === 2);
-      document.querySelector('#scene3').setAttribute('visible', n === 3);
     }
 
     AFRAME.registerComponent('click-to-start', {
@@ -57,15 +56,6 @@
         el.addEventListener('click', function () {
           showScene(2);
           el.classList.remove('clickable'); // hidden objects can still be clicked
-        });
-      }
-    });
-
-    AFRAME.registerComponent('click-to-star', {
-      init: function () {
-        var el = this.el;
-        el.addEventListener('click', function () {
-          showScene(3);
         });
       }
     });
@@ -109,21 +99,13 @@
            animation__leave="property: scale; to: 3 3 3; dur: 300; startEvents: mouseleave"></a-box>
         <a-sky color='#000'></a-sky>
       </a-entity>
-
-      <a-entity id="scene3" visible="true" position="0 0 0">
-        <!-- Scnene 1 -->
-        <a-box id="start" click-to-start class="clickable" color="white" position="0 2 -5" rotation="0 45 45" scale="3 3 3" 
-          animation__enter="property: scale; to: 4 4 4; dur: 300; startEvents: mouseenter"
-           animation__leave="property: scale; to: 3 3 3; dur: 300; startEvents: mouseleave"></a-box>
-        <a-sky color='#C00'></a-sky>
-      </a-entity>
-
+      
       <a-entity id="scene2" visible="false" position="0 0 0">
         <!-- Scene 2 -->
         <a-sky color="#00B"></a-sky>
         <a-plane  position="0 0 0" rotation="-90 0 0" width="100" height="100" color="#90EE90"></a-plane>
         <a-entity gltf-model="#star" position="10 0 10" scale="0.05 0.05 0.05"></a-entity>
-        <a-entity gltf-model="#starship" click-to-star position="7 0 -8" scale="0.05 0.05 0.05"></a-entity>
+        <a-entity gltf-model="#starship" position="7 0 -8" scale="0.05 0.05 0.05"></a-entity>
         <a-entity gltf-model="#portal_logo" rotation="90 0 0" position="0 3 -5" scale="0.05 0.05 0.05"
           animation="property: position; to: 0 3.5 -5; dir: alternate; dur: 3000; loop: true; easing: easeInOutSine;"></a-entity>
         <a-entity gltf-model="#pedastol" position="0 0 -5" scale="0.05 0.05 0.05"></a-entity>
