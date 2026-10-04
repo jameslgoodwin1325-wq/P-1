@@ -45,6 +45,10 @@
       document.querySelector('#scene2').setAttribute('visible', n === 2);
       document.querySelector('#scene3').setAttribute('visible', n === 3);
 
+      document.querySelector('#start').classList.remove('clickable');
+      document.querySelector('#starship').classList.remove('clickable');
+      document.querySelector('#starB').classList.remove('clickable');
+      
       switch (n) {
         case 1:
           document.querySelector('#start').classList.add('clickable');
