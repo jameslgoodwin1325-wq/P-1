@@ -82,14 +82,13 @@
 
   <script>
     function die(id) {
-      document.querySelector('#' + id).setAttribute('visible', false);
+      document.querySelector('#enemy').setAttribute('visible', false);
     }
 
-    AFRAMe.registerComponent('enemy', {
+    AFRAME.registerComponent('enemy', {
       init: function () {
         var el = this.el;
         el.addEventListener('click', function () {
-          //
           die('enemy');
         });
       }
