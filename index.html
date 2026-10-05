@@ -81,15 +81,20 @@
   </script>
 
   <script>
-    function die(id) {
+    function die() {
       document.querySelector('#enemy').setAttribute('visible', false);
     }
 
+    function revive() {
+      document.querySelector('#enemy').setAttribute('visible', true);
+    }
+    
     AFRAME.registerComponent('enemy', {
       init: function () {
         var el = this.el;
         el.addEventListener('click', function () {
-          die('enemy');
+          die();
+          setTimeout(revive(), 2000);
         });
       }
     });
